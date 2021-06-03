@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+  margin: 0 auto;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1300px;
+  max-height: 60px;
+}
+
+.header {
+  background-color: #009879;
+}
+.nav-bar {
+  margin-bottom: 100px;
+  height: 80px;
+}
+
+nav h1 {
+  color: white;
+  margin-top: 10px;
+}
+
+.btn-log {
+  background-color: #e65563;
+  font-size: 16px;
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  font-weight: bold;
+}
+
+.btn-log:hover {
+  background-color: #ff6b79;
+}
+
+.btn-log:active {
+  background-color: #c44b56;
+}

@@ -1,0 +1,36 @@
+<div class="container">
+
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Phone</th>
+        <th>Address</th>
+        <th>Department</th>
+        <th>Position</th>
+        <th>Salary in leva</th>
+        <th>Options</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let employee of employeeData">
+        <td>{{employee.firstname}}</td>
+        <td>{{employee.lastname}}</td>
+        <td>{{employee.phone}}</td>
+        <td>{{employee.address}}</td>
+        <td>{{employee.department_name}}</td>
+        <td>{{employee.position_name}}</td>
+        <td>{{employee.salary}}</td>
+        <td><a [routerLink]="['/employees', employee.id_user_data]"><button
+              class="btn-update">Update</button></a>
+          <button class="btn-delete"
+            (click)="deleteEmployee(employee.id_user_data)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <a [routerLink]="['/employees/addEmployee']"><button class="btn-add">+ Add
+      employee</button></a>
+
+</div>

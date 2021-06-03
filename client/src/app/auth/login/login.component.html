@@ -1,0 +1,62 @@
+<div class="container">
+  <div *ngIf="this.isLogin" class="login-form">
+    <form (ngSubmit)="onSubmit(form)" [formGroup]="form" class="form-container">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title class="login-title" [style.fontSize.px]="30">Login</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="row">
+            <div>
+              <mat-form-field class="full-width" [style.fontSize.px]="18">
+                <input formControlName="email" matInput placeholder="Email" />
+                <mat-error *ngIf="form.controls['email'].errors?.required">Enter
+                  an email</mat-error>
+                <mat-error *ngIf="form.controls['email'].errors?.pattern">Wrong
+                  email fomat</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <mat-form-field class="full-width" [style.fontSize.px]="18">
+                <input formControlName="password" matInput placeholder="Password" type="password" />
+                <mat-error *ngIf="form.controls['password'].errors?.required">Enter
+                  password</mat-error>
+                <mat-error *ngIf="form.controls['password'].errors?.minlength">Password
+                  must be longer than 4 letters
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+          <button type="submit" mat-raised-button class="btn-submit" color="primary" value="Login">
+            Login
+          </button>
+        </mat-card-actions>
+        <div *ngIf="this.wrongInput" class="login-warning">
+          Wrong email or password!
+        </div>
+      </mat-card>
+    </form>
+  </div>
+  <div *ngIf="!this.isLogin" class="logout-form">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title class="logout-title" [style.fontSize.px]="26">Are you
+          sure you want to logout!</mat-card-title>
+      </mat-card-header>
+      <mat-card-actions>
+        <div class="logout-btns">
+          <button (click)="logout()" mat-raised-button class="btn-logout" value="Logout">
+            Logout
+          </button>
+          <button (click)="back()" mat-raised-button class="btn-back" color="primary" value="back">
+            Back
+          </button>
+        </div>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

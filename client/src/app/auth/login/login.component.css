@@ -1,0 +1,58 @@
+.container {
+  margin: 0 auto;
+  max-width: 1300px;
+}
+
+.login-form,
+.logout-form {
+  margin: 0 auto;
+  max-width: 420px;
+}
+
+.full-width {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.login-title {
+  margin-top: 20px;
+}
+
+.login-warning {
+  color: red;
+}
+
+.btn-submit {
+  font-size: 18px;
+}
+
+.logout-title {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.logout-btns {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30px;
+  margin-bottom: 14px;
+}
+
+.btn-logout {
+  background-color: #e65563;
+  color: white;
+  width: 100px;
+}
+
+.btn-logout:hover {
+  background-color: #ff6b79;
+}
+
+.btn-logout:active {
+  background-color: #c44b56;
+}
+
+.btn-back {
+  color: white;
+  width: 100px;
+}
