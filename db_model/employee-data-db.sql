@@ -106,7 +106,57 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
+
+-- -----------------------------------------------------
+--INSERT DATA
+--
+--Roles
+-- -----------------------------------------------------
+INSERT INTO roles (id_role,name)VALUES (1,'admin');
+INSERT INTO roles (id_role,name)VALUES (2,'employee');
+
+-- -----------------------------------------------------
+-- Users(login)
+-- -----------------------------------------------------
+
 INSERT INTO users (email,password,roles_id_role)VALUES ('admin1@gmail.com','c8837b23ff8aaa8a2dde915473ce0991',1);
 INSERT INTO users (email,password,roles_id_role)VALUES ('admin2@gmail.com','c8837b23ff8aaa8a2dde915473ce0991',1);
 INSERT INTO users (email,password,roles_id_role)VALUES ('employee1@gmail.com','c8837b23ff8aaa8a2dde915473ce0991',2);
 INSERT INTO users (email,password,roles_id_role)VALUES ('employee2@gmail.com','c8837b23ff8aaa8a2dde915473ce0991',2);
+
+-- -----------------------------------------------------
+-- Departments
+-- -----------------------------------------------------
+
+INSERT INTO department (id_department,department_name)VALUES (1,'Sales');
+INSERT INTO department (id_department,department_name)VALUES (2,'Software dev');
+INSERT INTO department (id_department,department_name)VALUES (3,'Media analyst');
+
+-- -----------------------------------------------------
+-- Positions
+-- -----------------------------------------------------
+
+INSERT INTO position (id_position,position_name)VALUES (1,'Back end');
+INSERT INTO position (id_position,position_name)VALUES (2,'Front end');
+INSERT INTO position (id_position,position_name)VALUES (3,'Accountant');
+INSERT INTO position (id_position,position_name)VALUES (4,'Manager');
+INSERT INTO position (id_position,position_name)VALUES (5,'Sales egineer');
+
+-- -----------------------------------------------------
+-- Employees user data
+-- -----------------------------------------------------
+
+INSERT INTO user_data (firstname,lastname,phone,address,department_id_department,position_id_position,salary)
+VALUES ('Bob','Ross','0885943518','Bulgaria Varna',1,5,'2500');
+INSERT INTO user_data (firstname,lastname,phone,address,department_id_department,position_id_position,salary)
+VALUES ('Stoyan','Ivanov','0881236451','Bulgaria Ruse',2,1,'2000');
+INSERT INTO user_data (firstname,lastname,phone,address,department_id_department,position_id_position,salary)
+VALUES ('Plamen','Todorov','0885639478','Bulgaria Plovdiv',2,2,'1500');
+INSERT INTO user_data (firstname,lastname,phone,address,department_id_department,position_id_position,salary)
+VALUES ('Ivan','Stoyanov','0887317935','Bulgaria Devnq ul. Petrovi 45',2,2,'3500');
+INSERT INTO user_data (firstname,lastname,phone,address,department_id_department,position_id_position,salary)
+VALUES ('Lady','Gaga','0881243267','Bulgaria Veliko Turnovo',1,3,'3700');
+INSERT INTO user_data (firstname,lastname,phone,address,department_id_department,position_id_position,salary)
+VALUES ('Lili','Ivanova','0885743846','Bulgaria Varna ul. Kesten',3,5,'1700');
+INSERT INTO user_data (firstname,lastname,phone,address,department_id_department,position_id_position,salary)
+VALUES ('Boiko','Borisov','0885123418','Bulgaria Sofia',3,4,'8300');
