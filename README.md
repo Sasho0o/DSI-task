@@ -10,3 +10,18 @@
 # client start(angular based)
 
 - npm start
+
+# login accounts
+----------------------
+email: admin1@gmail.com
+password: 123321
+----------------------
+email: admin2@gmail.com
+password: 123321
+----------------------
+email: employee1@gmail.com
+password: 123321
+----------------------
+email: employee2@gmail.com
+password: 123321
+-----------------------

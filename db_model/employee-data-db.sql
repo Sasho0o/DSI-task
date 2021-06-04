@@ -105,3 +105,8 @@ COLLATE = utf8mb4_0900_ai_ci;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+INSERT INTO users (email,password,roles_id_role)VALUES ('admin1@gmail.com','c8837b23ff8aaa8a2dde915473ce0991',1);
+INSERT INTO users (email,password,roles_id_role)VALUES ('admin2@gmail.com','c8837b23ff8aaa8a2dde915473ce0991',1);
+INSERT INTO users (email,password,roles_id_role)VALUES ('employee1@gmail.com','c8837b23ff8aaa8a2dde915473ce0991',2);
+INSERT INTO users (email,password,roles_id_role)VALUES ('employee2@gmail.com','c8837b23ff8aaa8a2dde915473ce0991',2);
