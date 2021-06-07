@@ -3,7 +3,6 @@ const express = require("express");
 
 var md5 = require("md5");
 var jwt = require("jsonwebtoken");
-var cors = require("cors");
 
 const app = express();
 const port = 3000;
@@ -21,7 +20,6 @@ const pool = mysql.createConnection({
 const employeesRouter = express.Router();
 const usersRouter = express.Router();
 
-app.use(cors());
 app.use(express.json());
 
 app.use(function (req, res, next) {

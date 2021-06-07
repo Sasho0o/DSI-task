@@ -3,35 +3,50 @@ import { ToastrService } from 'ngx-toastr';
 import { EmployeeData } from '../models/employee-data';
 import { ApiService } from '../services/api.service';
 
+import { ViewChild} from '@angular/core';
+import { MatTable, MatTableDataSource} from '@angular/material/table';
+import { DialogService } from '../services/dialog.service';
+
+
 @Component({
   selector: 'app-employee-list',
   templateUrl: './employee-list.component.html',
   styleUrls: ['./employee-list.component.css'],
 })
-export class EmployeeListComponent implements OnInit {
-  employeeData: EmployeeData[];
-  constructor(private ApiService: ApiService, private toastr: ToastrService) {}
+export class EmployeeListComponent implements OnInit  {
+  displayedColumns: string[] = ['firstname', 'lastname','phone', 'address', 'department_name','position_name','salary','update','delete'];
+  dataSource:any = new MatTableDataSource<EmployeeData>();
+
+  constructor(private ApiService: ApiService, private toastr: ToastrService, private dialogService: DialogService) {
+  }
 
   ngOnInit() {
     this.ApiService.getEmployeeData().subscribe((data) => {
-      this.employeeData = data;
+      this.dataSource=data;
     });
   }
 
-  deleteEmployee(employeeId: number) {
-    console.log(employeeId);
-    this.ApiService.deleteEmployeeById(employeeId).subscribe(
-      (response) => {
-        this.toastr.success('Employee successfully deleted!','Success');
-        for (let i = 0; i < this.employeeData.length; ++i) {
-          if (this.employeeData[i].id_user_data === employeeId) {
-            this.employeeData.splice(i, 1);
+  @ViewChild(MatTable) table: MatTable<any>;
+
+  deleteEmployee(employeeId: number,firstname: string, lastname: string) {
+    this.dialogService.openConfirmDialog("Are you sure you want to delete "+firstname+" "+lastname+"'s information?")
+    .afterClosed().subscribe(res =>{
+      if(res){
+        this.ApiService.deleteEmployeeById(employeeId).subscribe(
+          (response) => {
+            for (let i = 0; i < this.dataSource.length; ++i) {
+              if (this.dataSource[i].id_user_data === response) {
+                this.dataSource.splice(i, 1);
+              }
+            }
+            this.table.renderRows();
+            this.toastr.success('Employee successfully deleted!','Success');
+          },
+          (error) => {
+            console.log(error);
           }
-        }
-      },
-      (error) => {
-        console.log(error);
+        );
       }
-    );
+    });
   }
 }

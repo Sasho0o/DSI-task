@@ -1,36 +1,60 @@
 <div class="container">
 
-  <table class="styled-table">
-    <thead>
-      <tr>
-        <th>First name</th>
-        <th>Last name</th>
-        <th>Phone</th>
-        <th>Address</th>
-        <th>Department</th>
-        <th>Position</th>
-        <th>Salary in leva</th>
-        <th>Options</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let employee of employeeData">
-        <td>{{employee.firstname}}</td>
-        <td>{{employee.lastname}}</td>
-        <td>{{employee.phone}}</td>
-        <td>{{employee.address}}</td>
-        <td>{{employee.department_name}}</td>
-        <td>{{employee.position_name}}</td>
-        <td>{{employee.salary}}</td>
-        <td><a [routerLink]="['/employees', employee.id_user_data]"><button
-              class="btn-update">Update</button></a>
-          <button class="btn-delete"
-            (click)="deleteEmployee(employee.id_user_data)">Delete</button>
-        </td>
-      </tr>
-    </tbody>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="firstname">
+      <th mat-header-cell *matHeaderCellDef> First Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.firstname}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="lastname">
+      <th mat-header-cell *matHeaderCellDef> Last Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.lastname}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef> Phone </th>
+      <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="address">
+      <th mat-header-cell *matHeaderCellDef> Address </th>
+      <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="department_name">
+      <th mat-header-cell *matHeaderCellDef> Department </th>
+      <td mat-cell *matCellDef="let element"> {{element.department_name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="position_name">
+      <th mat-header-cell *matHeaderCellDef> Position </th>
+      <td mat-cell *matCellDef="let element"> {{element.position_name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="salary">
+      <th mat-header-cell *matHeaderCellDef> Salary </th>
+      <td mat-cell *matCellDef="let element"> {{element.salary | currency:'BGN ':'symbol':'4.2-2'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="update">
+      <th mat-header-cell *matHeaderCellDef> Update option </th>
+      <td mat-cell *matCellDef="let element" class="action-link">
+        <a [routerLink]="['/employees', element.id_user_data]"><button
+            class="btn-update">Update</button></a>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="delete">
+      <th mat-header-cell *matHeaderCellDef> Delete option </th>
+      <td mat-cell *matCellDef="let element let j= index;" class="action-link">
+        <button class="btn-delete"
+          (click)="deleteEmployee(element.id_user_data,element.firstname,element.lastname)">Delete</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
   <a [routerLink]="['/employees/addEmployee']"><button class="btn-add">+ Add
-      employee</button></a>
-
+    employee</button></a>
 </div>

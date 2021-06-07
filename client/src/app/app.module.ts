@@ -13,9 +13,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { AuthModule } from './auth/auth.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTableModule } from '@angular/material/table'
 import { ToastrModule } from 'ngx-toastr'
 
 import { FormComponent } from './form/update-employee-form.component';
@@ -23,6 +26,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { AddEmployeeFormComponent } from './add-employee-form/add-employee-form.component';
 import { AuthorizationInterceptor } from './auth/authorization.interceptor';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +34,7 @@ import { AuthorizationInterceptor } from './auth/authorization.interceptor';
     FormComponent,
     EmployeeListComponent,
     AddEmployeeFormComponent,
+    ConfirmDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,9 +50,13 @@ import { AuthorizationInterceptor } from './auth/authorization.interceptor';
     MatButtonModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatTableModule,
+    MatIconModule,
     AuthModule,
     RouterModule,
+    MatDialogModule,
     BrowserAnimationsModule,
+    MatTableModule,
     ToastrModule.forRoot()
   ],
   providers: [
