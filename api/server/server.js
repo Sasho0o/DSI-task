@@ -1,5 +1,7 @@
 const mysql = require("mysql2");
 const express = require("express");
+const validator = require("../validator/validator");
+const { validationResult } = require("express-validator");
 
 var md5 = require("md5");
 var jwt = require("jsonwebtoken");
@@ -126,9 +128,13 @@ employeesRouter.get("/department/all", (req, res) => {
 });
 
 //Update employee data with id
-employeesRouter.put("/:employeeId", (req, res) => {
+employeesRouter.put("/:employeeId",validator.validateEmployee, (req, res) => {
   const employeeId = req.params.employeeId;
   const updatedEmployee = req.body;
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+  }
   pool.query(
     `
     UPDATE user_data 
@@ -158,8 +164,12 @@ employeesRouter.put("/:employeeId", (req, res) => {
 });
 
 //Insert an employee
-employeesRouter.post("/", (req, res) => {
+employeesRouter.post("/", validator.validateEmployee, (req, res) => {
   const addEmployee = req.body;
+  const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
   pool.query(
     `
     INSERT INTO user_data 
@@ -224,7 +234,7 @@ usersRouter.post("/login", async function (req, res) {
           res.status(400);
           res.send("Wrong email or password");
         } else {
-          let token = jwt.sign({ data: result }, "secret");
+          let token = jwt.sign({ data: result }, "secret",{ expiresIn: "1200s" });
           res.send({ token });
         }
       }
