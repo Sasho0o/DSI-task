@@ -1,60 +1,24 @@
-const mysql = require("mysql2");
 const express = require("express");
 const validator = require("../validator/validator");
 const { validationResult } = require("express-validator");
+const { pool } = require("./pool");
+const employeesRouter = require("../controllers/employee-controller");
+const usersRouter = require("../controllers/user-controller");
 
-var md5 = require("md5");
-var jwt = require("jsonwebtoken");
+const md5 = require("md5");
+const jwt = require("jsonwebtoken");
 
 const app = express();
 const port = 3000;
-
-//mysql connection
-const pool = mysql.createConnection({
-  connectionLimit: 10,
-  password: "rootpassword",
-  user: "root",
-  database: "employeedb",
-  host: "localhost",
-  port: "3306",
-});
-
-const employeesRouter = express.Router();
-const usersRouter = express.Router();
+const JWT_TOKEN_LIFETIME = "1200s";
 
 app.use(express.json());
 
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
-
-employeesRouter.use((req, res, next) => {
-  const authHeader = req.headers["authorization"].slice(7);
-  if (!authHeader) {
-    res.status(401);
-    res.send();
-  } else {
-    try {
-      jwt.verify(authHeader, "secret");
-      next();
-    } catch (error) {
-      res.status(401);
-      res.send();
-    }
-  }
-});
-
 app.use("/api/employee", employeesRouter);
-
 app.use("/api/user", usersRouter);
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`App listening at http://localhost:${port}`);
 });
 
 //Get all employees
@@ -128,12 +92,12 @@ employeesRouter.get("/department/all", (req, res) => {
 });
 
 //Update employee data with id
-employeesRouter.put("/:employeeId",validator.validateEmployee, (req, res) => {
+employeesRouter.put("/:employeeId", validator.validateEmployee, (req, res) => {
   const employeeId = req.params.employeeId;
   const updatedEmployee = req.body;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() });
+    return res.status(422).json({ errors: errors.array() });
   }
   pool.query(
     `
@@ -167,9 +131,9 @@ employeesRouter.put("/:employeeId",validator.validateEmployee, (req, res) => {
 employeesRouter.post("/", validator.validateEmployee, (req, res) => {
   const addEmployee = req.body;
   const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(422).json({ errors: errors.array() });
-    }
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
   pool.query(
     `
     INSERT INTO user_data 
@@ -234,7 +198,9 @@ usersRouter.post("/login", async function (req, res) {
           res.status(400);
           res.send("Wrong email or password");
         } else {
-          let token = jwt.sign({ data: result }, "secret",{ expiresIn: "1200s" });
+          let token = jwt.sign({ data: result }, "secret", {
+            expiresIn: JWT_TOKEN_LIFETIME,
+          });
           res.send({ token });
         }
       }

@@ -1,6 +1,6 @@
 const { check } = require("express-validator");
 
-exports.validateEmployee = [
+module.exports.validateEmployee = [
     check('firstname', 'Firstname must be more than 3 and less than 15 characters long')
         .exists()
         .isLength({ min: 3 ,max: 15 })
